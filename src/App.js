@@ -9,6 +9,8 @@ function App() {
   // definir el state
   const [busquedaletra, guardarBusquedaLetra] = useState({});
   const [letra, guardaLetra] = useState("");
+  const [info, guardarInfo] = useState({});
+
 
   useEffect(() => {
     if (Object.keys(busquedaletra).length === 0) return;
@@ -17,13 +19,28 @@ function App() {
       const { artista, cancion } = busquedaletra;
 
       const url = `https://api.lyrics.ovh/v1/${artista}/${cancion}`;
+  const url2= `theaudiodb.com/api/v1/json/1/search.php?s=coldplay
+  `
 
-      const resultado = await axios(url);
 
-      guardaLetra(resultado.data.lyrics);
+   const [letra, informacion] = await Promise.all([
+     axios(url),
+     axios(url2)
+   ]);
+
+   
+
+   guardarLetra(letra.data.lyrics);
+   guardarInfo(informacion.data.artists[0]);
+ 
+
+
+
+
+     
     };
     consultarApiLetra();
-  }, [busquedaletra]);
+  }, [busquedaletra,info]);
 
   return (
     <Fragment>
