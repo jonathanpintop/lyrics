@@ -1,11 +1,54 @@
-import React from "react";
+import React, {useState} from "react";
 
 const Formulario = () => {
-  return (
+
+const [busqueda, guardarBusqueda] = useState({
+
+    artista: '',
+    cancion: ''
+})
+
+
+const [error, guardarError] = useState(false);
+
+const {artista, cancion } = busqueda;
+
+const actualizarState = e => {
+guardarBusqueda({
+    ...busqueda,
+    [e.target.name] : e.target.value
+})
+
+
+}
+
+
+
+// Consultar la api
+const buscarInformacion = e => {
+ e.preventDefault();
+
+if(artista.trim() === '' || cancion.trim() === '') {
+
+    guardarError(true);
+    return;
+
+
+}
+
+// Todo bien ,pasar al componente principal 
+guardarError(false);
+}
+
+
+
+  return ( 
     <div className="bg-info">
       <div className="container">
         <div className="row">
-          <form className="col card text-white bg-transparent mb-5 pt-5 pb-2">
+          <form 
+          onSubmit={buscarInformacion}
+          className="col card text-white bg-transparent mb-5 pt-5 pb-2">
             <fieldset>
               <legend className="text-center">Buscador Letras Canciones</legend>
 
@@ -18,6 +61,8 @@ const Formulario = () => {
                       className="form-control"
                       name="artista"
                       placeholder="Nombre Artista"
+                      onChange={actualizarState}
+                      value={artista}
                     />
                   </div>
                 </div>
@@ -30,10 +75,21 @@ const Formulario = () => {
                       className="form-control"
                       name="cancion"
                       placeholder="Nombre Canción"
+                      onChange={actualizarState}
+                      value={cancion}
                     />
                   </div>
                 </div>
               </div>
+
+              <button
+              type="submit"
+              className="btn btn-primary float-right"
+              >Buscar</button>
+
+            
+
+
             </fieldset>
           </form>
         </div>
