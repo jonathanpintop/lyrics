@@ -3,18 +3,18 @@ import React from "react";
 const Info = ({ info }) => {
   if (Object.keys(info).length === 0) return null;
 
-  const { strArtistThumb, strGenre, strBiographyES } = info;
+  const { strArtistThumb, strGenre, strBiographyEN } = info;
 
   return (
     <div className="card border-light">
       <div className="card-header bg-primary text-light font-weight-bold">
-        Información Artista
+        Artist Info
       </div>
       <div className="card-body">
-        <img src={info.strArtistThumb} alt="Logo Artista" />
-        <p className="card-text">Género: {strGenre}</p>
-        <h2 className="card-text">Biografía:</h2>
-        <p className="card-text">{strBiographyES}</p>
+        <img src={info.strArtistThumb} alt="Artist Logo" />
+        <p className="card-text">Genre: {strGenre}</p>
+        <h2 className="card-text">Bio:</h2>
+        <p className="card-text">{strBiographyEN}</p>
         <p className="card-text">
           <a
             href={`https://${info.strFacebook}`}
